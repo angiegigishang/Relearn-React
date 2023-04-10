@@ -1,0 +1,10 @@
+{
+    "files": ["text1.ts", "caculator.d.ts"],
+    "include": [],
+    "compilerOptions": {
+        "outDir": "./output",
+        "module": "ESNext",
+        "target":"ES5",
+        "declaration": true
+    }
+}

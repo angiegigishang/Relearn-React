@@ -143,3 +143,47 @@ function getLength(input: string | number): number {
         return input.toString().length
     }
 }
+
+const a1: Array<number> = [1, 2, 3]
+const date = new Date()
+date.getTime()
+const reg = /abc/
+reg.test('abc')
+Math.pow(2, 2)
+
+//DOM and BOM
+let body = document.body
+let allLis2 = document.querySelectorAll('li')
+//allLis2.keys()
+document.addEventListener('click', (e) => {
+    e.preventDefault
+})
+
+interface IPerson {
+    name: string,
+    age: number
+}
+let viking: IPerson = { name: 'viking', age: 20 }
+type IPartial = Partial<IPerson>
+let vking2: IPartial = { name: 'sdf'}
+type IOmit = Omit<IPerson, 'name'>
+let viking3: IOmit = { age: 20 }
+
+//global objects
+const aa: Array<number> = [1, 2, 3]
+const date2 = new Date()
+date2.getTime()
+const reg2 = /abc/
+reg.test('abc')
+
+//build-in objects
+Math.pow(2, 3)
+
+//DOM and BOM
+let body2 = document.body
+let allLis4 = document.querySelectorAll('li')
+////allLis4.keys()
+
+document.addEventListener('click', (e) => {
+    e.preventDefault()
+})
