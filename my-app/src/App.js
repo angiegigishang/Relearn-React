@@ -6,39 +6,56 @@ import DigitalClock from './components/DigitalClock';
 import CommentBox from './components/CommentBox';
 import CommentList from './components/CommentList';
 import { Component } from 'react';
-const tags = ['konglong', 'football']
+import ThemeContext from './theme-context';
+import ThemedBar from './components/ThemedBar';
 
-// function App() {
-//   return (
-//     <div className="App">
-//       <CommentBox></CommentBox>
-//     </div>
-//   );
-// }
+const tags = ['konglong', 'football']
+const themes = {
+  light: {
+    classnames: 'btn btn-primary',
+    bgColor: '#eeeeee',
+    color: '#000'
+  },
+  dark: {
+    classnames: 'btn btn-light',
+    bgColor: '#222222',
+    color: '#fff'
+  }
+}
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      comments: ['this is my first sdfsdf']
+      theme: 'light'
     }
-    this.addComment = this.addComment.bind(this)
+    this.changeTheme = this.changeTheme.bind(this)
   }
-  addComment(comment) {
+  changeTheme(theme) {
     this.setState({
-      comments: [...this.state.comments, comment]
+      theme
     })
-    
   }
   render() {
-    const { comments } = this.state
+    //const { comments } = this.state
     return (
-      <div>
-        <CommentBox commentsLength={comments.length}
-                    onAddComment={this.addComment}
-        ></CommentBox>
-        <CommentList comments={comments}></CommentList>
-      </div>    
+      <ThemeContext.Provider value={themes[this.state.theme]}>
+        <div>
+          <a href="#theme-switcher"
+            className="btn btn-light"
+            onClick={() => {this.changeTheme('light')}}
+          >
+            light theme
+          </a>
+          <a href="#theme-switcher"
+            className='btn btn-secondary'
+            onClick={() => {this.changeTheme('dark')}}
+          >
+            deep theme
+          </a>
+          <ThemedBar></ThemedBar>
+        </div>  
+      </ThemeContext.Provider>  
     )
   }
 }
