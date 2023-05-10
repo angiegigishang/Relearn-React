@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Hello from './components/Hello';
 import LikeButton from './components/LikeeButton';
+import MouseTracker from './components/MouseTracker';
 
 function App() {
+  const [ show, setShow ] = useState(true)
   return (
     <div className="App">
       <header className="App-header">
@@ -12,6 +14,7 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
+        { show && <MouseTracker/> }
         <LikeButton/>
         <a
           className="App-link"
