@@ -14,6 +14,9 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
+        <p>
+          <button onClick={() => {setShow(!show)}}>Toggle Tracker</button>
+        </p>
         { show && <MouseTracker/> }
         <LikeButton/>
         <a
