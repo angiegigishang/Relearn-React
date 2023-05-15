@@ -15,7 +15,7 @@ class DigitalClock extends React.Component {
         }, 3000)
     }
     componentDidUpdate(currentProps, currentState) {
-        console.log(currentState)
+        //console.log(currentState)
     }
     componentWillUnmount() {
         clearInterval(this.timer)

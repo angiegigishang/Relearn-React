@@ -44,7 +44,7 @@ const results3 = swap(['string', 123])
 results3[1].concat
 
 function echoWithArr<T>(arg: T[]): T[] {
-    console.log(arg.length)
+    //console.log(arg.length)
     return arg
 }
 const arrs= echoWithArr([1,2,3])
@@ -54,7 +54,7 @@ interface IwithLength {
 }
 
 function echoWithLength<T extends IwithLength>(arg: T):T {
-    console.log(arg.length)
+    //console.log(arg.length)
     return arg
 }
 
@@ -74,12 +74,12 @@ class Queue<T> {
 
 const queue = new Queue<number>()
 queue.push(1)
-console.log(queue.pop().toFixed())
-console.log(queue.pop().toFixed())
+//console.log(queue.pop().toFixed())
+//console.log(queue.pop().toFixed())
 
 const queue2 = new Queue<string>()
 queue2.push('str')
-console.log(queue2.pop().length)
+//console.log(queue2.pop().length)
 
 interface KeyPair<T, U> {
     key: T;
