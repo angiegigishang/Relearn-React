@@ -1,11 +1,7 @@
-import React, { useState } from 'react';
-import logo from './logo.svg';
+import React, { useState, useEffect, startTransition } from 'react';
 import './App.css';
-import Hello from './components/Hello';
 import LikeButton from './components/LikeeButton';
-import MouseTracker from './components/MouseTracker';
-import useMousePosition from './components/useMousePosition';
-import useURLLoader from './hooks/useURLLoader';
+import { start } from 'repl';
 
 interface IShowResult {
   message :string;
@@ -28,40 +24,42 @@ const themes :IThemeProps = {
 
 export const ThemeContext = React.createContext(themes.light)
 
-function App() {
-  //const [ show, setShow ] = useState(true)
-  //const [ data, loading] = useURLLoader('https://dog.ceo/api/breeds/image/random', [show])
-  //const [ data, loading] = useURLLoader('', [show])
- // const dogResult = data as IShowResult
-  //const positions = useMousePosition()
+//function App() {
+const App: React.FC = () => {
+  const [show, setShow] = useState(true)
+  const [ counter, setCounter ] = useState(0)
+  const [ input, setInput ] = useState('')
+  const [ searchData, setSearchData ] = useState<number[]>([])
+  console.log('update one time', show, counter)
+  const updateInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value
+    setInput(value)
+    startTransition(() => {
+      const arr = Array.from({ length: 10000 }, (_, i) => new Date().getTime() + i)
+      setSearchData(arr)
+    })
+  }
+  const batchUpdate = () => {
+    setShow(!show)
+    setCounter(counter + 1)
+  }
+  useEffect(() => {
+    setTimeout(() => {
+      batchUpdate()
+    }, 2000)
+  }, [])
   return (
     <div className="App">
-      <ThemeContext.Provider value={themes.dark}>
+      {/* <ThemeContext.Provider value={themes.dark}> */}
       <header className="App-header">
-        
-        {/* <img src={logo} className="App-logo" alt="logo" />
+        {/* <LikeButton/>  */}
         <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p> */}
-        {/* <p>
-          <button onClick={() => {setShow(!show)}}>Refresh dog photo</button>
-        </p>
-        { loading ? <p>🐶 is reading...</p>
-        : <img src={dogResult && dogResult.message}/>} */}
-        {/* { show && <MouseTracker/> }
-        <p>x: {positions.x}, y: {positions.y}</p> */}
-        <LikeButton/>
-        {/* <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a> */}
-        
+          <button onClick={batchUpdate}>Batch update</button>
+          <input value={input} type="text" onChange={updateInput}/>
+          {searchData.map(d => <option key={d}>{d}</option>)}
+        </p> 
       </header>
-      </ThemeContext.Provider>
+      {/* </ThemeContext.Provider> */}
     </div>
   );
 }
