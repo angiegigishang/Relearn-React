@@ -1,4 +1,4 @@
-import React, { useState, useEffect, startTransition } from 'react';
+import React, { useState, useEffect, startTransition, useTransition } from 'react';
 import './App.css';
 import LikeButton from './components/LikeeButton';
 import { start } from 'repl';
@@ -30,6 +30,7 @@ const App: React.FC = () => {
   const [ counter, setCounter ] = useState(0)
   const [ input, setInput ] = useState('')
   const [ searchData, setSearchData ] = useState<number[]>([])
+  const [ isPending, startTransition] = useTransition()
   console.log('update one time', show, counter)
   const updateInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
@@ -56,6 +57,7 @@ const App: React.FC = () => {
         <p>
           <button onClick={batchUpdate}>Batch update</button>
           <input value={input} type="text" onChange={updateInput}/>
+          { isPending && <h1>⏳</h1>}
           {searchData.map(d => <option key={d}>{d}</option>)}
         </p> 
       </header>
