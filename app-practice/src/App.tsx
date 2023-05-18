@@ -61,7 +61,7 @@ const App: React.FC = () => {
           { isPending && <h1>⏳</h1>}
           {searchData.map(d => <option key={d}>{d}</option>)}
         </p>  */}
-        <Suspense fallback={<h1>Loading dog image ...</h1>}>
+        <Suspense fallback={<h1>Loadings dog image ...</h1>}>
           <DogShow/>
         </Suspense>
         <Suspense fallback={<h1>Loading todo data ...</h1>}>
