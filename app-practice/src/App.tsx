@@ -1,8 +1,9 @@
-import React, { useState, useEffect, startTransition, useTransition } from 'react';
+import React, { useState, useEffect, startTransition, useTransition, Suspense } from 'react';
 import './App.css';
 import LikeButton from './components/LikeeButton';
 import { start } from 'repl';
-
+import DogShow from './components/DogShow';
+import Todo from './components/Todo';
 interface IShowResult {
   message :string;
   status: string;
@@ -54,12 +55,18 @@ const App: React.FC = () => {
       {/* <ThemeContext.Provider value={themes.dark}> */}
       <header className="App-header">
         {/* <LikeButton/>  */}
-        <p>
+        {/* <p>
           <button onClick={batchUpdate}>Batch update</button>
           <input value={input} type="text" onChange={updateInput}/>
           { isPending && <h1>⏳</h1>}
           {searchData.map(d => <option key={d}>{d}</option>)}
-        </p> 
+        </p>  */}
+        <Suspense fallback={<h1>Loading dog image ...</h1>}>
+          <DogShow/>
+        </Suspense>
+        <Suspense fallback={<h1>Loading todo data ...</h1>}>
+          <Todo/>
+        </Suspense>
       </header>
       {/* </ThemeContext.Provider> */}
     </div>
