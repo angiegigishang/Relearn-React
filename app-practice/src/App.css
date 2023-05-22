@@ -1,3 +1,5 @@
+@import '../src/components/Button/_style.scss';
+
 .App {
   text-align: center;
 }
