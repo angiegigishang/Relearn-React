@@ -1,17 +1,16 @@
-import React, { useState, useEffect, startTransition, useTransition, Suspense } from 'react';
-import './App.css';
-import Button, { ButtonSize, ButtonType} from './components/Button/button';
-
+import React from "react";
+import Button, { ButtonType, ButtonSize} from "./components/Button/button";
 
 //function App() {
 const App: React.FC = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <div>test</div>
-        <Button disabled>hello</Button>
-        <Button btnType={ButtonType.Primary} size={ButtonSize.Large}> hello</Button>
-        <Button btnType={ButtonType.Link} href="www.baidu.com" disabled>Baidu Link</Button>
+        <Button> hello</Button>
+        <Button disabled btnType={ButtonType.Primary} size={ButtonSize.Large}> hello </Button>
+        <Button btnType={ButtonType.Link} href="http://www.baidu.com">hello</Button>
+        <Button size={ButtonSize.Large}>dfsfd</Button>
+        <Button size={ButtonSize.Small}>dfsfd</Button>
       </header>
     </div>
   );
