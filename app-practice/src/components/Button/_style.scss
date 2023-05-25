@@ -50,6 +50,10 @@
   color: $btn-link-color;
   text-decoration: $link-decoration;
   box-shadow: none;
+  &:hover {
+    color: $btn-link-hover-color;
+    text-decoration: $link-hover-decoration;
+  }
   &:focus,
   &.focus {
     text-decoration: $link-hover-decoration;

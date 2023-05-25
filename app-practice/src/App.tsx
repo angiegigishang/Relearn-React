@@ -1,5 +1,6 @@
 import React from "react";
 import Button, { ButtonType, ButtonSize} from "./components/Button/button";
+import Alert, {AlertType} from "./components/Alert/alert";
 
 //function App() {
 const App: React.FC = () => {
@@ -12,6 +13,10 @@ const App: React.FC = () => {
         <Button size={ButtonSize.Small}>Small Button</Button>
         <Button btnType={ButtonType.Link} href="http://www.baidu.com" target="_blank">Disabled Link</Button>
       </header>
+      <div>
+        <Alert alertType="success" content="alert1" header="header1"></Alert>
+        <Alert alertType="danger" content="alert2"></Alert>
+      </div>
     </div>
   );
 }
