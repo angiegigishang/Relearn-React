@@ -13,7 +13,7 @@ export interface BaseAlertProps {
   alertType?: AlertType;
 }
 
-export type AlertProps = BaseAlertProps & React.AllHTMLAttributes<HTMLElement>
+export type AlertProps = BaseAlertProps
 
 export const Alert: FC<AlertProps> = (props) => {
   const {
