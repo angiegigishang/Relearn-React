@@ -9,15 +9,18 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <MenuItem>
-          cool link 1
-        </MenuItem>
-        <MenuItem>
-          cool link 2
-        </MenuItem>
-        <MenuItem>
-          cool link 3
-        </MenuItem>
+        <Menu defaultIndex={0} onSelect={(index) => {alert(index)}}>
+          <MenuItem index={0}>
+            cool link 1
+          </MenuItem>
+          <MenuItem index={1} disabled>
+            cool link 2
+          </MenuItem>
+          <MenuItem index={2}>
+            cool link 3
+          </MenuItem>
+        </Menu>
+        
         <Button onClick={(e) => {e.preventDefault(); alert('123')}}> hello</Button>
         <Button disabled btnType={ButtonType.Primary} size={ButtonSize.Large}> Disabled Button </Button>
         <Button size={ButtonSize.Large}>Large Button</Button>
