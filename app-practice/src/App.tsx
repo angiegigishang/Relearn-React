@@ -10,7 +10,7 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <Menu defaultIndex={0} mode="vertical">
+        <Menu defaultIndex='0' mode="vertical">
           <MenuItem>
             cool link 1
           </MenuItem>
