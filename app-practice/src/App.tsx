@@ -1,15 +1,22 @@
 import React from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas, faCoffee } from '@fortawesome/free-solid-svg-icons';
 import Button, { ButtonType, ButtonSize} from "./components/Button/button";
 import Alert, {AlertType} from "./components/Alert/alert";
 import Menu from "./components/Menu/menu";
 import MenuItem from "./components/Menu/menuItem";
 import SubMenu from "./components/Menu/subMenu";
+import Icon from "./components/Icon/icon";
+library.add(fas)
 
 //function App() {
 const App: React.FC = () => {
   return (
     <div className="App">
       <header className="App-header">
+        <FontAwesomeIcon icon={faCoffee} size="lg"></FontAwesomeIcon>
+        <Icon icon="arrow-down" theme="danger" size="10x"/>
         <Menu defaultIndex='0' 
               onSelect={(index) => {alert('menu-test' + index)}} 
               mode="vertical"
