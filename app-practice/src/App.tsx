@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas, faCoffee } from '@fortawesome/free-solid-svg-icons';
@@ -9,10 +9,13 @@ import MenuItem from "./components/Menu/menuItem";
 import SubMenu from "./components/Menu/subMenu";
 import Practice from "./components/Practice/practice";
 import Icon from "./components/Icon/icon";
+import Transition from "./components/Transition/transition";
+
 library.add(fas)
 
 //function App() {
 const App: React.FC = () => {
+  const [ show, setShow ] = useState(false)
   return (
     <div className="App">
       <header className="App-header">
@@ -45,6 +48,38 @@ const App: React.FC = () => {
             cool link 3
           </MenuItem>
         </Menu>
+        <Button size="lg" onClick={() => {setShow(!show)}}>Toggle</Button>
+        <Transition
+          in={show}
+          timeout={300}
+          animation="zoom-in-left"
+        >
+          <div>
+            <p>
+              Edit <code>src/App.tsx</code> and save to reload.
+            </p>
+            <p>
+              Edit <code>src/App.tsx</code> and save to reload.
+            </p>
+            <p>
+              Edit <code>src/App.tsx</code> and save to reload.
+            </p>
+            <p>
+              Edit <code>src/App.tsx</code> and save to reload.
+            </p>
+            <p>
+              Edit <code>src/App.tsx</code> and save to reload.
+            </p>
+          </div>
+        </Transition>
+        <Transition
+          in={show}
+          timeout={300}
+          animation="zoom-in-left"
+          wrapper
+        >
+          <Button btnType="primary" size="lg">A Large Button</Button>
+        </Transition>
         
         {/* <Button onClick={(e) => {e.preventDefault(); alert('123')}}> hello</Button>
         <Button disabled btnType={ButtonType.Primary} size={ButtonSize.Large}> Disabled Button </Button>
