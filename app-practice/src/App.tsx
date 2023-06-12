@@ -7,6 +7,7 @@ import Alert, {AlertType} from "./components/Alert/alert";
 import Menu from "./components/Menu/menu";
 import MenuItem from "./components/Menu/menuItem";
 import SubMenu from "./components/Menu/subMenu";
+import Practice from "./components/Practice/practice";
 import Icon from "./components/Icon/icon";
 library.add(fas)
 
@@ -15,6 +16,7 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <header className="App-header">
+        <Practice></Practice>
         <FontAwesomeIcon icon={faCoffee} size="lg" spin></FontAwesomeIcon>
         <Icon icon="arrow-down" theme="primary" size="10x"/>
         <Menu defaultIndex='0' 
