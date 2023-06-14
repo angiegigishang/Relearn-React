@@ -42,3 +42,10 @@ export const Small: Story = {
     label: 'Button',
   },
 };
+
+export const MyButton:Story = {
+ args: {
+  size: 'small',
+  label: 'Button',
+ }
+}
