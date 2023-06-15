@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Button } from './Button';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
-const meta = {
+const meta: Meta<typeof Button> = {
   title: 'Example/Button',
   component: Button,
   tags: ['autodocs'],
@@ -11,6 +11,7 @@ const meta = {
     backgroundColor: { control: 'color' },
   },
 } satisfies Meta<typeof Button>;
+
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -48,4 +49,11 @@ export const MyButton:Story = {
   size: 'small',
   label: 'Button',
  }
-}
+};
+
+// export const MyButtonTest: Story = {
+//   render: () => <Button primary label="Button" />,
+// }
+
+//Button.stories.ts|tsx
+
