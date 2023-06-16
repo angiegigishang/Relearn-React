@@ -12,8 +12,11 @@ const buttonMeta: ComponentMeta<typeof Button> = {
 
 export default buttonMeta;
 
-export const Default: ComponentStory<typeof Button> = () => (
-  <Button>Default Button</Button>
+export const Default: ComponentStory<typeof Button> = (args) => (
+  <>
+    <Button {...args}>Default Button</Button>
+    <Button size="lg" {...args}>Default Button</Button>
+  </>
 )
 
 Default.storyName = 'Defalut Buton'
