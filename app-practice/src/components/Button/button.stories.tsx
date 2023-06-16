@@ -12,12 +12,22 @@ const buttonMeta: ComponentMeta<typeof Button> = {
 
 export default buttonMeta;
 
-export const Default: ComponentStory<typeof Button> = (args) => (
-  <>
-    <Button {...args}>Default Button</Button>
-    <Button size="lg" {...args}>Default Button</Button>
-  </>
+const Template: ComponentStory<typeof Button> = (args) => (
+  <Button {...args}></Button>
 )
+
+export const Default = Template.bind({})
+
+Default.args = {
+  children: 'Default Button'
+}
+
+// export const Default: ComponentStory<typeof Button> = (args) => (
+//   <>
+//     <Button {...args}>Default Button</Button>
+//     <Button size="lg" {...args}>Default Button</Button>
+//   </>
+// )
 
 Default.storyName = 'Defalut Buton'
 
