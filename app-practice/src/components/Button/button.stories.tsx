@@ -21,6 +21,39 @@ export const Default = Template.bind({})
 Default.args = {
   children: 'Default Button'
 }
+Default.storyName = 'Defalut Buton'
+
+export const Large = Template.bind({})
+Large.args = {
+  size: 'lg',
+  children: 'Large Button'
+}
+
+export const Small = Template.bind({})
+Small.args = {
+  size: 'sm',
+  children: 'Small Button'
+}
+
+export const Primary = Template.bind({})
+Primary.args = {
+  btnType: 'primary',
+  children: 'Primary Button'
+}
+
+export const Danger = Template.bind({})
+Danger.args = {
+  btnType: 'danger',
+  children: 'Danger Button'
+}
+
+export const Link = Template.bind({})
+Link.args = {
+  btnType: 'link',
+  children: 'Link Button'
+}
+
+
 
 // export const Default: ComponentStory<typeof Button> = (args) => (
 //   <>
@@ -29,23 +62,21 @@ Default.args = {
 //   </>
 // )
 
-Default.storyName = 'Defalut Buton'
+// export const ButtonWithSize: ComponentStory<typeof Button> = (args) => (
+//   <>
+//     <Button size="lg" {...args}>large button</Button>
+//     <Button size="sm" {...args}>small button</Button>
+//   </>
+// )
 
-export const ButtonWithSize: ComponentStory<typeof Button> = () => (
-  <>
-    <Button size="lg">large button</Button>
-    <Button size="sm">small button</Button>
-  </>
-)
+// ButtonWithSize.storyName = 'Different size'
 
-ButtonWithSize.storyName = 'Different size'
+// export const ButtonWithType: ComponentStory<typeof Button> = (args) => (
+//   <>
+//     <Button btnType="primary">primary button</Button>
+//     <Button btnType="danger">danger button</Button>
+//     <Button btnType="link" href="http://baidu.com">link button</Button>
+//   </>
+// )
 
-export const ButtonWithType: ComponentStory<typeof Button> = () => (
-  <>
-    <Button btnType="primary">primary button</Button>
-    <Button btnType="danger">danger button</Button>
-    <Button btnType="link" href="http://baidu.com">link button</Button>
-  </>
-)
-
-ButtonWithType.storyName = 'Different Type'
+// ButtonWithType.storyName = 'Different Type'
