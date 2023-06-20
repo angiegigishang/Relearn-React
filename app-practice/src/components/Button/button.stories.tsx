@@ -22,6 +22,13 @@ Default.args = {
   children: 'Default Button'
 }
 Default.storyName = 'Defalut Buton'
+Default.decorators = [
+  (Story) => (
+    <div style={{margin: '50px'}}>
+      <Story/>
+    </div>
+  )
+]
 
 export const Large = Template.bind({})
 Large.args = {

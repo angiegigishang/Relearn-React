@@ -20,6 +20,13 @@ const menuMeta: ComponentMeta<typeof Menu> = {
       control: 'color',
       description: 'normal test'
     }
+  },
+  parameters: {
+    controls: {
+      matchers: {
+        date: /mode$/,
+      }
+    }
   }
 }
 
@@ -59,10 +66,19 @@ ClickMenu.args = {
   mode: 'vertical'
 }
 
-// ClickMenu.argTypes = {
-//   defaultIndex: {
-//     control: 'color'
-//   }
-// }
+ClickMenu.argTypes = {
+  defaultIndex: {
+    control: 'color'
+  }
+}
+
+ClickMenu.parameters = {
+  backgrounds: {
+    values: [
+      { name: 'red', value: '#f00'},
+      { name: 'green', value: '#0f0'},
+    ]
+  }
+}
 
 ClickMenu.storyName = 'Vertical Click'
