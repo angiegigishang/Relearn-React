@@ -1,6 +1,7 @@
-import { Meta } from '@storybook/addon-docs'
+import { Meta, Canvas, Story } from '@storybook/addon-docs'
+import Button from './button'
 
-<Meta title="Testing MDX"/>
+<Meta title="Testing MDX" component={Button}/>
 
 <style>
   {
@@ -12,6 +13,10 @@ import { Meta } from '@storybook/addon-docs'
   }
 </style>
 
+export const Template = (args) => (
+  <Button {...args}></Button>
+)
+
 #this is a testing
 
 ```js
@@ -19,3 +24,14 @@ const a = 'abc'
 ```
 
 <h1 className='jsx-title'>title using jsx</h1>
+
+<Canvas>
+  <Story 
+    name='basic button'
+    args={{
+      children: 'default button'
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
