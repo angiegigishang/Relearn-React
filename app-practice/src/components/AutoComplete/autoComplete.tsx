@@ -30,6 +30,28 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
     }
   }
 
+  const handleSelect = (item: string) => {
+    setInputValue(item)
+    setSuggestions([])
+    if (onSelect) {
+      onSelect(item)
+    }
+  }
+
+  const generateDropdown = () => {
+    return (
+      <ul>
+        {suggestions.map((item, index) => {
+          return (
+            <li key={index} onClick={() => handleSelect(item)}>
+              {item}
+            </li>
+          )
+        })}
+      </ul>
+    )
+  }
+
   return (
     <div className="viking-auto-complete">
       <Input
@@ -37,6 +59,7 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
         onChange={handleChange}
         {...restProps}
       />
+      {(suggestions.length > 0) && generateDropdown()}
     </div>
   )
 }
