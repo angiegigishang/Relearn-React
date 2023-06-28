@@ -16,8 +16,7 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
 
   const [ inputValue, setInputValue] = useState(value)
   const [ suggestions, setSuggestions] = useState<string[]>([])
-  
-  console.log('ssu', suggestions)
+
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.trim()
