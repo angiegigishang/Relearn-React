@@ -21,9 +21,31 @@ const menuMeta: ComponentMeta<typeof AutoComplete> = {
 export default menuMeta;
 
 const lakers = ['bradley', 'prope', 'caruso', 'cook', 'cousins', 'james', 'apple', 'banana', 'good', 'bad', 'well', 'excellent']
+
+const lakersWithNumber = [
+  {value: 'bradley', number: 11},
+  {value: 'pope', number: 1},
+  {value: 'caruso', number: 4},
+  {value: 'cook', number: 5},
+  {value: 'cc', number: 6},
+  {value: 'apple', number: 7},
+  {value: 'rose', number: 6},
+  {value: 'good', number: 9},
+]
+
 const handleFetch = (query: string) => {
   return lakers.filter(name => name.includes(query))
 }
 
-export const MyStory: StoryFn = () => <AutoComplete fetchSuggestions={handleFetch} onSelect={action('selected')}/>;
+const renderOption = (item: string) => {
+  return (
+    <h2>Name: {item}</h2>
+  )
+}
+
+export const MyStory: StoryFn = () => <AutoComplete 
+                                        fetchSuggestions={handleFetch} 
+                                        onSelect={action('selected')}
+                                        renderOption={renderOption}
+                                      />;
 MyStory.storyName = 'Default Menu'
