@@ -1,10 +1,16 @@
 import React, { FC, useState, ChangeEvent, ReactElement} from "react";
 import Input, { InputProps } from '../Input/input';
 
+
+interface DataSourceObject {
+  value: string;
+}
+
+export type DataSourceType<T ={}> = T & DataSourceObject
 export interface AutoCompleteProps extends Omit<InputProps, 'onSelect'> {
   fetchSuggestions: (str: string) => string[];
   onSelect?: (item: string) => void;
-  renderOption?: (item: string) => ReactElement;
+  renderOption?: (item: DataSourceType) => ReactElement;
 }
 
 export const AutoComplete: FC<AutoCompleteProps> = (props) => {
@@ -31,15 +37,15 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
     }
   }
 
-  const handleSelect = (item: string) => {
-    setInputValue(item)
+  const handleSelect = (item: DataSourceType) => {
+    setInputValue(item.value)
     setSuggestions([])
     if (onSelect) {
-      onSelect(item)
+      onSelect(item.value)
     }
   }
 
-  const renderTemplate = (item: string) => {
+  const renderTemplate = (item: DataSourceType) => {
     return renderOption ? renderOption(item) : item
   }
 
