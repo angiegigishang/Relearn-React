@@ -2,7 +2,7 @@ import React from "react";
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { StoryFn} from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { AutoComplete } from "./autoComplete";
+import { AutoComplete,DataSourceType } from "./autoComplete";
 
 //不知道为什么这么写就生效了
 const menuMeta: ComponentMeta<typeof AutoComplete> = {
@@ -33,13 +33,20 @@ const lakersWithNumber = [
   {value: 'good', number: 9},
 ]
 
+// const handleFetch = (query: string) => {
+//   return lakers.filter(name => name.includes(query))
+// }
+
 const handleFetch = (query: string) => {
-  return lakers.filter(name => name.includes(query))
+  return lakersWithNumber.filter(player => player.value.includes(query))
 }
 
-const renderOption = (item: string) => {
+const renderOption = (item: DataSourceType<any>) => {
   return (
-    <h2>Name: {item}</h2>
+    <>
+    <h2>Name: {item.value}</h2>
+    <div>Number: {item.number}</div>
+    </>
   )
 }
 
