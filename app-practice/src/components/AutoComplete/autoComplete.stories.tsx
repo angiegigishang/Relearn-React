@@ -33,13 +33,13 @@ const lakersWithNumber = [
   {value: 'good', number: 9},
 ]
 
-// const handleFetch = (query: string) => {
-//   return lakers.filter(name => name.includes(query))
-// }
-
 const handleFetch = (query: string) => {
-  return lakersWithNumber.filter(player => player.value.includes(query))
+  return lakers.filter(name => name.includes(query)).map(name => ({value: name}))
 }
+
+// const handleFetch = (query: string) => {
+//   return lakersWithNumber.filter(player => player.value.includes(query))
+// }
 
 const renderOption = (item: DataSourceType<any>) => {
   return (
