@@ -8,7 +8,7 @@ interface DataSourceObject {
 
 export type DataSourceType<T ={}> = T & DataSourceObject
 export interface AutoCompleteProps extends Omit<InputProps, 'onSelect'> {
-  fetchSuggestions: (str: string) => DataSourceType[];
+  fetchSuggestions: (str: string) => DataSourceType[] | Promise<DataSourceType[]>;
   onSelect?: (item: DataSourceType) => void;
   renderOption?: (item: DataSourceType) => ReactElement;
 }
@@ -25,13 +25,19 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
   const [ inputValue, setInputValue] = useState(value)
   const [ suggestions, setSuggestions] = useState<DataSourceType[]>([])
 
-
+  //https://api.github.com/search/users?q=ab
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.trim()
     setInputValue(value)
     if(value) {
       const results = fetchSuggestions(value)
-      setSuggestions(results)
+      if (results instanceof Promise) {
+        results.then(data => {
+          setSuggestions(data)
+        })
+      } else {
+        setSuggestions(results)
+      }
     } else {
       setSuggestions([])
     }
