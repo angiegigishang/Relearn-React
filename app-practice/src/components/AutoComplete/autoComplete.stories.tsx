@@ -4,6 +4,7 @@ import { StoryFn} from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { AutoComplete,DataSourceType } from "./autoComplete";
 
+
 //不知道为什么这么写就生效了
 const menuMeta: ComponentMeta<typeof AutoComplete> = {
   title: 'AutoComplete',
@@ -46,17 +47,18 @@ const handleFetch = (query: string) => {
     .then(res => res.json())
     .then(({items}) => {
       console.log(items)
-      const formatItems = items.slice(0, 10).map(item => ({
-        value: item.login, ...item
-      }))
+      // return items.slice(0, 10).map(item => ({
+      //   value: item.login, ...item
+      // }))
+      const formatItems = items.slice(0,10).map(item => ({ value: item.login, ...item}))
     })
 }
 
 const renderOption = (item: DataSourceType<any>) => {
   return (
     <>
-    <h2>Name: {item.value}</h2>
-    <div>Number: {item.number}</div>
+    <h2>Name: {item.login}</h2>
+    <p>url: {item.url}</p>
     </>
   )
 }
