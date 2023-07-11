@@ -34,10 +34,11 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
     if(value) {
       const results = fetchSuggestions(value)
       if (results instanceof Promise) {
-        console.log('triggered')
+        console.log('triggered', results)
         setLoading(true)
-        results.then(data => {
+        results.then((data) => {
           setLoading(false)
+          console.log('triggered2', data)
           setSuggestions(data)
         })
       } else {

@@ -21,6 +21,12 @@ const menuMeta: ComponentMeta<typeof AutoComplete> = {
 
 export default menuMeta;
 
+interface GithubUserProps {
+  login: string;
+  url: string;
+  avatar_url: string;
+}
+
 const lakers = ['bradley', 'prope', 'caruso', 'cook', 'cousins', 'james', 'apple', 'banana', 'good', 'bad', 'well', 'excellent']
 
 const lakersWithNumber = [
@@ -50,15 +56,17 @@ const handleFetch = (query: string) => {
       // return items.slice(0, 10).map(item => ({
       //   value: item.login, ...item
       // }))
-      const formatItems = items.slice(0,10).map(item => ({ value: item.login, ...item}))
+      //const formatItems = items.slice(0,10).map(item => ({ value: item.login, ...item }))
+      return items.slice(0, 10).map((item: any) => ({ value: item.login, ...item}))
     })
 }
 
-const renderOption = (item: DataSourceType<any>) => {
+const renderOption = (item: DataSourceType) => {
+  const itemWithNumber = item as DataSourceType<GithubUserProps>
   return (
     <>
-    <h2>Name: {item.login}</h2>
-    <p>url: {item.url}</p>
+    <h2>Name: {itemWithNumber.login}</h2>
+    <p>url: {itemWithNumber.url}</p>
     </>
   )
 }
