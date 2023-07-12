@@ -65,8 +65,8 @@ const renderOption = (item: DataSourceType) => {
   const itemWithNumber = item as DataSourceType<GithubUserProps>
   return (
     <>
-    <h2>Name: {itemWithNumber.login}</h2>
-    <p>url: {itemWithNumber.url}</p>
+    <p>Name: {itemWithNumber.login}</p>
+    {/* <p>url: {itemWithNumber.url}</p> */}
     </>
   )
 }
