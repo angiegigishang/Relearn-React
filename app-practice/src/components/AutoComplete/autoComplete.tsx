@@ -3,6 +3,7 @@ import classNames from "classnames";
 import Input, { InputProps } from '../Input/input';
 import Icon from "../Icon/icon";
 import useDebounce from "../../hooks/useDebounce";
+import './_style.scss';
 
 
 interface DataSourceObject {
@@ -50,7 +51,7 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
     }
   }, [debouncedValue])
 
-  const hightlight = (index: number) => {
+  const highlight = (index: number) => {
     if(index < 0) index = 0; 
     if(index >= suggestions.length) {
       index = suggestions.length -1
@@ -58,16 +59,21 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
     setHighlightIndex(index)
   }
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    console.log(e.keyCode)
     switch(e.keyCode) {
       case 13:
-        hightlight(highlightIndex -1)
+        if(suggestions[highlightIndex]) {
+          handleSelect(suggestions[highlightIndex])
+        }
         break;
       case 38:
-        hightlight(highlightIndex + 1)
+        highlight(highlightIndex - 1)
         break;
       case 40:
+        highlight(highlightIndex + 1)
         break;
       case 27:
+        setSuggestions([])
         break;
       default:
         break
