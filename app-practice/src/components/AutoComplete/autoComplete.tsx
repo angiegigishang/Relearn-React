@@ -4,7 +4,6 @@ import Input, { InputProps } from '../Input/input';
 import Icon from "../Icon/icon";
 import useDebounce from "../../hooks/useDebounce";
 import useClickOutside from "../../hooks/useClickOutside";
-import './_style.scss';
 
 
 interface DataSourceObject {
@@ -39,6 +38,7 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
 
   useEffect(() => {
     if(debouncedValue && triggerSearch.current) {
+      setSuggestions([])
       const results = fetchSuggestions(debouncedValue)
       if (results instanceof Promise) {
         console.log('triggered', results)
@@ -54,7 +54,7 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
     } else {
       setSuggestions([])
     }
-  }, [debouncedValue])
+  }, [debouncedValue, fetchSuggestions])
 
   const highlight = (index: number) => {
     if(index < 0) index = 0; 
@@ -107,7 +107,7 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
 
   const generateDropdown = () => {
     return (
-      <ul>
+      <ul  className="viking-suggestion-list">
         {suggestions.map((item, index) => {
           const cnames = classNames('suggestion-item', {
             'item-highlighted': index === highlightIndex
