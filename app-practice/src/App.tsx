@@ -2,32 +2,37 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const App: React.FC = () => {
-  const [ title, setTitle] = useState('')
-  const postData = {
-    title: 'my title',
-    body: 'hello man'
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const files = e.target.files
+      if (files) {
+        const uploadedFile = files[0]
+        const formData = new FormData()
+        formData.append(uploadedFile.name, uploadedFile)
+        axios.post("https://jsonplaceholder.typicode.com/posts", formData, {
+          headers: {
+            'Content-type': 'multipart/form-data'
+          }
+        }).then(resp => {
+          console.log(resp)
+        })
+      }
   }
-  useEffect(() => {
-    // axios.get('https://jsonplaceholder.typicode.com/posts/1', {
-    //   headers: {
-    //     'X-Requested-Width': 'XMLHttpRequest',
-    //   },
-    //   responseType: 'json'
-    // })
-    //   .then(resp => {
-    //     setTitle(resp.data.title)
-    //   })
-    axios.post('https://jsonplaceholder.typicode.com/posts', postData)
-      .then(resp => {
-        console.log(resp)
-        setTitle(resp.data.title)
-      })
-  })
+  
   return(
-    <div className='App'>
-      <header className='App-header'>
-        <h1>{title}</h1>
-      </header>
+    // form mode for submit
+    // <div className="App" style={{marginTop: '100px', marginLeft: '100px'}}>
+    //   <form 
+    //     method="post"
+    //     encType="multipart/form-data"
+    //     action="https://jsonplaceholder.typicode.com/posts"
+    //   >
+    //     <input type="file" name="myFile"/>
+    //     <button type="submit">Submit</button>
+    //   </form>
+    // </div>
+    <div className="App" style={{marginTop: '100px', marginLeft: '100px'}}>
+      <input type="file" name="myFile" onChange={handleFileChange}/>
     </div>
   )
 }
