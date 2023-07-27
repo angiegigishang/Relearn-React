@@ -29,12 +29,27 @@ const menuMeta: ComponentMeta<typeof Upload> = {
   }
 }
 
+const checkFileSiza = (file: File) => {
+  if (Math.round(file.size / 1024) > 50) {
+    alert('file too big')
+    return false
+  }
+  return true
+}
+
+const filePromise = (file: File) => {
+  const newFile = new File([file], 'new_name.docx', {type: file.type})
+  return Promise.resolve(newFile)
+}
+
 export default menuMeta;
 
 export const MyStory: StoryFn = () => <Upload
   action="https://jsonplaceholder.typicode.com/posts"
-  onProgress={action('progress')}
-  onSuccess={action('success')}
-  onError={action('error')}
+  // onProgress={action('progress')}
+  // onSuccess={action('success')}
+  // onError={action('error')}
+  onChange={action('changed')}
+  beforeUpload={filePromise}
 />;
 MyStory.storyName = 'Upload Function' 
