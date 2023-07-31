@@ -30,7 +30,7 @@ const menuMeta: ComponentMeta<typeof Upload> = {
 }
 
 const checkFileSiza = (file: File) => {
-  if (Math.round(file.size / 1024) > 50) {
+  if (Math.round(file.size / 1024) > 1) {
     alert('file too big')
     return false
   }
@@ -51,5 +51,6 @@ export const MyStory: StoryFn = () => <Upload
   // onError={action('error')}
   onChange={action('changed')}
   beforeUpload={filePromise}
+  //beforeUpload={checkFileSiza}
 />;
 MyStory.storyName = 'Upload Function' 

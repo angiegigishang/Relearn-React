@@ -1,7 +1,20 @@
-import React, { ChangeEvent, FC, useRef } from 'react'
+import React, { ChangeEvent, FC, useRef, useState } from 'react'
 import axios from 'axios'
 
 import Button from '../Button/button'
+
+export type UploadFileStatus = 'ready' | 'uploading' | 'success' | 'error'
+
+export interface UploadFile {
+  uid: string;
+  size: number;
+  name: string;
+  status?: UploadFileStatus;
+  percent?: number;
+  raw?: File;
+  response?: any;
+  error?: any;
+}
 
 export interface UploadProps {
   action: string;
@@ -22,6 +35,9 @@ export const Upload: FC<UploadProps> = (props) => {
     onError
   } = props
   const fileInput = useRef<HTMLInputElement>(null)
+
+  const [ fileList, setFileList ] = useState<UploadFile[]>([])
+
   const handleClick = () => {
     if (fileInput.current) {
       fileInput.current.click()
@@ -58,6 +74,16 @@ export const Upload: FC<UploadProps> = (props) => {
     })
   }
   const post = (file: File) => {
+    let _file: UploadFile = {
+      uid: Date.now() + 'upload-file',
+      status: 'ready',
+      name: file.name,
+      size: file.size,
+      percent: 0,
+      raw: file
+    }
+
+    setFileList([_file, ...fileList])
     const formData = new FormData()
     formData.append(file.name, file)
     axios.post(action, formData, {
@@ -90,6 +116,8 @@ export const Upload: FC<UploadProps> = (props) => {
       }
     })
   }
+
+  console.log(fileList)
 
 
   return (
