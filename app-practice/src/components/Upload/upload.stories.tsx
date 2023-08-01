@@ -3,6 +3,31 @@ import { action } from '@storybook/addon-actions';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { Upload } from './upload';
 import { StoryFn} from '@storybook/react';
+import { UploadFile } from './upload';
+
+const defaultFileList: UploadFile[] = [
+  {
+    uid: '123',
+    size: 1234,
+    name: 'hello.md',
+    status: 'uploading',
+    percent: 30
+  },
+  {
+    uid: '124',
+    size: 1234,
+    name: 'hello.md',
+    status: 'success',
+    percent: 30
+  },
+  {
+    uid: '125',
+    size: 1234,
+    name: 'hello.md',
+    status: 'error',
+    percent: 30
+  }
+]
 
 
 // const SimpleUpload = () => {
@@ -50,7 +75,9 @@ export const MyStory: StoryFn = () => <Upload
   // onSuccess={action('success')}
   // onError={action('error')}
   onChange={action('changed')}
-  beforeUpload={filePromise}
+  //beforeUpload={filePromise}
   //beforeUpload={checkFileSiza}
+  defaultFileList={defaultFileList}
+  onRemove={action('removed')}
 />;
 MyStory.storyName = 'Upload Function' 
