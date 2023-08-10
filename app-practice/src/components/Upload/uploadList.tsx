@@ -21,6 +21,14 @@ export const UploadList: FC<UploadListProps> = (props) => {
               <Icon icon="file-alt" theme="secondary"/>
               {item.name}
             </span>
+            <span className="file-status">
+              {item.status === 'uploading' && <Icon icon="spinner" spin theme="primary"/>}
+              {item.status === 'success' && <Icon icon="check-circle" spin theme="success"/>}
+              {item.status === 'error' && <Icon icon="times-circle" spin theme="danger"/>}
+            </span>
+            <span className="file-action">
+              <Icon icon="times" onClick={() => {onRemove(item)}}/>
+            </span>
           </li>
         )
       })}

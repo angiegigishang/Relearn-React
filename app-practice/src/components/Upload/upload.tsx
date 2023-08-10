@@ -32,6 +32,7 @@ export const Upload: FC<UploadProps> = (props) => {
   const {
     action,
     beforeUpload,
+    defaultFileList,
     onProgress,
     onSuccess,
     onChange,
@@ -40,7 +41,7 @@ export const Upload: FC<UploadProps> = (props) => {
   } = props
   const fileInput = useRef<HTMLInputElement>(null)
 
-  const [ fileList, setFileList ] = useState<UploadFile[]>([])
+  const [ fileList, setFileList ] = useState<UploadFile[]>(defaultFileList || [])
   const updateFileList = (updateFile: UploadFile, updateObj: Partial<UploadFile>) => {
     setFileList(prevList => {
       return prevList.map(file => {
@@ -140,6 +141,15 @@ export const Upload: FC<UploadProps> = (props) => {
     })
   }
 
+  const handleRemove = (file: UploadFile) => {
+    setFileList((prevList) => {
+      return prevList.filter(item => item.uid !== file.uid)
+    })
+    if(onRemove) {
+      onRemove(file)
+    }
+  }
+
   return (
     <div
       className='viking-upload-component'
@@ -156,6 +166,10 @@ export const Upload: FC<UploadProps> = (props) => {
         ref={fileInput}
         onChange={handleFileChange}
         type="file"
+      />
+      <UploadList
+        fileList={fileList}
+        onRemove={handleRemove}
       />
     </div>
   )
