@@ -80,5 +80,10 @@ export const MyStory: StoryFn = () => <Upload
   //beforeUpload={checkFileSiza}
   defaultFileList={defaultFileList}
   onRemove={action('removed')}
+  name="fileName"
+  data={{'key': 'value'}}
+  headers={{'X-Powered-By': 'test-angie'}}
+  accept=".pdf"
+  multiple = {true}
 />;
 MyStory.storyName = 'Upload Function' 
