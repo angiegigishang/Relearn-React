@@ -5,6 +5,8 @@ import Button from '../Button/button'
 import { UploadList } from './uploadList'
 import { StringLiteral } from 'typescript'
 
+import Dragger from './dragger'
+
 export type UploadFileStatus = 'ready' | 'uploading' | 'success' | 'error'
 
 export interface UploadFile {
@@ -33,6 +35,8 @@ export interface UploadProps {
   withCredentials?: boolean;
   accept?: string;
   multiple?: boolean;
+  children?: React.ReactNode;
+  drag?:boolean;
 }
 
 export const Upload: FC<UploadProps> = (props) => {
@@ -50,7 +54,9 @@ export const Upload: FC<UploadProps> = (props) => {
     data,
     withCredentials,
     accept,
-    multiple
+    multiple,
+    children,
+    drag
   } = props
   const fileInput = useRef<HTMLInputElement>(null)
 
@@ -175,21 +181,28 @@ export const Upload: FC<UploadProps> = (props) => {
     <div
       className='viking-upload-component'
     >
-      <Button 
-        btnType="primary"
+      <div
+        className="viking-upload-input"
+        style={{display: 'inline-block'}}
         onClick={handleClick}
       >
-        Upload File
-      </Button>
-      <input
-        className="viking-file-input"
-        style={{display: 'none'}}
-        ref={fileInput}
-        onChange={handleFileChange}
-        type="file"
-        accept={accept}
-        multiple={multiple}
-      />
+        { drag ? 
+          <Dragger onFile={(files) =>{uploadFiles(files)}}>
+            {children}
+          </Dragger> :
+          children
+        }
+        {children}
+        <input
+          className="viking-file-input"
+          style={{display: 'none'}}
+          ref={fileInput}
+          onChange={handleFileChange}
+          type="file"
+          accept={accept}
+          multiple={multiple}
+        />
+      </div>
       <UploadList
         fileList={fileList}
         onRemove={handleRemove}

@@ -85,5 +85,6 @@ export const MyStory: StoryFn = () => <Upload
   headers={{'X-Powered-By': 'test-angie'}}
   accept=".pdf"
   multiple = {true}
+  drag={true}
 />;
 MyStory.storyName = 'Upload Function' 
