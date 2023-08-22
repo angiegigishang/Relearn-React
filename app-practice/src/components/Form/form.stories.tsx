@@ -24,20 +24,20 @@ export default meta
 export const BasicForm = () =>  {
   return (
     <Form>
-      <Item label="user name">
+      <Item label="user name" name="aaa">
         <Input/>
       </Item>
-      <Item label="password">
+      <Item label="password" name="bbb">
         <Input type='password'/>
       </Item>
-      <Item>
+      <Item name="ccc">
         <Input placeholder="no-label"/>
       </Item>
       <div className="agreement-section" style={{'display': 'flex', 'justifyContent': 'center'}}>
-        <Item>
+        <Item name="ddd">
           <input type="checkbox"/>
         </Item>
-        <span className="agree-text">You agree to subscribe<a href="#">user content</a></span>
+        <span className="agree-text">You agr·ee to subscribe<a href="#">user content</a></span>
       </div>
       <div className='viking-form-submit-area'>
         <Button type='submit' btnType='primary'>log in</Button>
