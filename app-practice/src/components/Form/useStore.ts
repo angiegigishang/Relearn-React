@@ -1,7 +1,7 @@
 import { useState, useReducer } from "react";
 
 export interface FieldDetail {
-  name: string;
+  name: any;
   value: string;
   rules: any[];
   isValid: boolean;
@@ -17,8 +17,8 @@ export interface FormState {
 }
 
 export interface FieldsAction {
-  type: 'addField';
-  name: string;
+  type: 'addField' | 'updateValue';
+  name: any;
   value: any;
 }
 
@@ -29,6 +29,13 @@ function fieldsReducer(state: FieldState, action: FieldsAction):FieldState {
         ...state,
         [action.name]: {...action.value}
       }
+    case 'updateValue':
+      return {
+        ...state,
+        [action.name]: {...state[action.name], value: action.value}
+      }
+    default:
+      return state;
   }
 }
 

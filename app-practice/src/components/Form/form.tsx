@@ -6,7 +6,7 @@ export interface FormProps {
   children?: ReactNode;
 }
 
-export type IFormContext = Pick<ReturnType<typeof useStore>, 'dispatch'>
+export type IFormContext = Pick<ReturnType<typeof useStore>, 'dispatch' | 'fields'>
 export const FormContext = createContext<IFormContext>({} as IFormContext)
 
 
@@ -14,7 +14,8 @@ export const Form: FC<FormProps> = (props) => {
   const { name, children } = props
   const { form, fields, dispatch} = useStore()
   const passedContext: IFormContext = {
-    dispatch
+    dispatch,
+    fields
   }
 
   return (
