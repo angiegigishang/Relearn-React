@@ -34,7 +34,7 @@ export const BasicForm = () =>  {
         <Input placeholder="no-label"/>
       </Item>
       <div className="agreement-section" style={{'display': 'flex', 'justifyContent': 'center'}}>
-        <Item name="ddd">
+        <Item name="ddd" valuePropsName="checked" getValueFromEvent={(e)=> e.target.checked}>
           <input type="checkbox"/>
         </Item>
         <span className="agree-text">You agr·ee to subscribe<a href="#">user content</a></span>

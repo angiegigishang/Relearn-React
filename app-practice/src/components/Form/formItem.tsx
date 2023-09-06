@@ -5,13 +5,19 @@ export interface FormItemProps {
   name?: string | undefined;
   label?: string;
   children?: ReactNode;
+  valuePropsName?: string;
+  trigger?: string;
+  getValueFromEvent?: (event: any) => any;
 }
 
 const Item: FC<FormItemProps> = (props) => {
   const {
     name,
     label,
-    children
+    children,
+    valuePropsName,
+    trigger,
+    getValueFromEvent
   } = props
   const { dispatch, fields } = useContext(FormContext)
   const rowClass = classNames('viking-row', {
@@ -24,17 +30,26 @@ const Item: FC<FormItemProps> = (props) => {
   const fieldState = fields[name as string]
   const value = fieldState && fieldState.value
   const onValueUpdate = (e: any) => {
-    const value = e.target.value
+    const value = getValueFromEvent && getValueFromEvent(e)
     console.log('new value', value)
     dispatch({type: 'updateValue', name, value})
   }
 
   const controlProps: Record<string, any> = {}
-  controlProps.value = value;
-  controlProps.onChange = onValueUpdate
+  controlProps[valuePropsName!] = value;
+  controlProps[trigger!] = onValueUpdate
 
   const childList = React.Children.toArray(children)
 
+  if(childList.length === 0) {
+    console.error('no child element found in form')
+  }
+  if(childList.length > 1) {
+    console.warn('only support one child element')
+  }
+  if(!React.isValidElement(childList[0])) {
+    console.log('child component is not react element')
+  }
   const child = childList[0] as React.ReactElement
 
   const returnChildNode = React.cloneElement(
@@ -61,4 +76,9 @@ const Item: FC<FormItemProps> = (props) => {
   )
 }
 
+Item.defaultProps = {
+  valuePropsName: 'value',
+  trigger: 'onChange',
+  getValueFromEvent: (e) => e.target.value
+}
 export default Item
