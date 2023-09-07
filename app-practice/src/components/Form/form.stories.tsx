@@ -23,11 +23,11 @@ export default meta
 
 export const BasicForm = () =>  {
   return (
-    <Form>
-      <Item label="user name" name="aaa">
+    <Form initialValues={{username: 'aaaa', agreement: true}}>
+      <Item label="user name" name="username">
         <Input/>
       </Item>
-      <Item label="password" name="bbb">
+      <Item label="password" name="password">
         <Input type='password'/>
       </Item>
       <Item name="ccc">

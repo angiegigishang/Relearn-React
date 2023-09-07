@@ -1,12 +1,16 @@
 import React, { FC, ReactNode, useContext, useEffect } from "react";
 import classNames from "classnames";
 import Form, { FormContext } from "./form";
+
+export type SomeRequired<T, K extends keyof T> = Required<Pick<T, K>> & Omit<T, K>
+type TestType = SomeRequired<FormItemProps, 'getValueFromEvent'>
 export interface FormItemProps {
   name?: string | undefined;
   label?: string;
   children?: ReactNode;
   valuePropsName?: string;
   trigger?: string;
+  val?: string;
   getValueFromEvent?: (event: any) => any;
 }
 
@@ -18,13 +22,14 @@ const Item: FC<FormItemProps> = (props) => {
     valuePropsName,
     trigger,
     getValueFromEvent
-  } = props
-  const { dispatch, fields } = useContext(FormContext)
+  } = props as SomeRequired<FormItemProps, 'getValueFromEvent' | 'trigger' | 'val'>
+  const { dispatch, fields, initialValues } = useContext(FormContext)
   const rowClass = classNames('viking-row', {
     'viking-row-no-label': !label
   })
   useEffect(() => {
-    dispatch({ type: 'addField', name, value: {label, name, value: ''}})
+    const value = (initialValues && initialValues[name as string]) || ''
+    dispatch({ type: 'addField', name, value: {label, name, value}})
   }, [])
 
   const fieldState = fields[name as string]
