@@ -24,10 +24,10 @@ export default meta
 export const BasicForm = () =>  {
   return (
     <Form initialValues={{username: 'aaaa', agreement: true}}>
-      <Item label="user name" name="username">
+      <Item label="user name" name="username" rules={[{type: 'email', required: true}]}>
         <Input/>
       </Item>
-      <Item label="password" name="password">
+      <Item label="password" name="password" rules={[{type: 'string', required: true, min: 3, max: 8}]}>
         <Input type='password'/>
       </Item>
       <Item name="ccc">

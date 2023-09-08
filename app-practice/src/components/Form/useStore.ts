@@ -1,11 +1,12 @@
 import { useState, useReducer } from "react";
+import Schema, { RuleItem, ValidateError} from 'async-validator';
 
 export interface FieldDetail {
-  name: any;
+  name: string;
   value: string;
-  rules: any[];
+  rules: RuleItem[];
   isValid: boolean;
-  errors: any[]
+  errors: ValidateError[];
 }
 
 export interface FieldState {
@@ -17,7 +18,7 @@ export interface FormState {
 }
 
 export interface FieldsAction {
-  type: 'addField' | 'updateValue';
+  type: 'addField' | 'updateValue' | 'updateValidateResult';
   name: any;
   value: any;
 }
@@ -34,6 +35,12 @@ function fieldsReducer(state: FieldState, action: FieldsAction):FieldState {
         ...state,
         [action.name]: {...state[action.name], value: action.value}
       }
+    case 'updateValidateResult':
+      const { isValid, errors } = action.value
+      return {
+        ...state,
+        [action.name]: { ...state[action.name], isValid, errors}
+      }
     default:
       return state;
   }
@@ -45,10 +52,35 @@ function fieldsReducer(state: FieldState, action: FieldsAction):FieldState {
 function useStore() {
   const [ form, setForm ] = useState<FormState>({isValid: true})
   const [ fields, dispatch ] = useReducer(fieldsReducer, {})
+  const validateField = async(name: string) => {
+    const {value, rules} = fields[name]
+    const descriptor = {
+      [name]: rules
+    }
+    const valueMap = {
+      [name]: value
+    }
+    const validator = new Schema(descriptor)
+    let isValid = true
+    let errors: ValidateError[] = []
+    try {
+      await validator.validate(valueMap)
+    } catch (e) {
+      isValid = false
+      const err = e as any
+      console.log('e', err.errors)
+      console.log('fields', err.fields)
+      errors = err.erros
+    } finally {
+      console.log('errors', isValid)
+      dispatch({ type: 'updateValidateResult', name, value: {isValid, errors}})
+    }
+  }
   return {
     fields,
     dispatch,
-    form
+    form,
+    validateField
   }
 }
 
