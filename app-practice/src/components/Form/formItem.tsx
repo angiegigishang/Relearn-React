@@ -39,6 +39,16 @@ const Item: FC<FormItemProps> = (props) => {
 
   const fieldState = fields[name as string]
   const value = fieldState && fieldState.value
+  const errors = fieldState && fieldState.errors
+  const isRequired = rules?.some(rule => rule.required)
+  const hasError = errors && errors.length > 0
+  const labelClass = classNames({
+    'viking-form-item-required': isRequired
+  })
+  const itemClass = classNames('viking-form-item-control', {
+    'viking-form-item-has-error': hasError
+  })
+
   const onValueUpdate = (e: any) => {
     const value = getValueFromEvent && getValueFromEvent(e)
     console.log('new value', value)
@@ -79,13 +89,22 @@ const Item: FC<FormItemProps> = (props) => {
     <div className={rowClass}>
       {label && 
         <div className="viking-form-item-label">
-          <label title={label}>
+          <label title={label} className={labelClass}>
             {label}
           </label>
         </div>
       }
       <div className="viking-form-item">
-        {returnChildNode}
+        <div className={itemClass}>
+          {returnChildNode}
+        </div>
+        {hasError && 
+          <div className="viking-form-explain">
+            <span>
+              {errors[0].message}
+            </span>
+          </div>  
+        }
       </div>
     </div>
   )

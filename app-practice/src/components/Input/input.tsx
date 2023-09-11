@@ -18,16 +18,6 @@ export interface InputProps extends Omit<InputHTMLAttributes<HTMLElement>, 'size
   onChange? : (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-/**
- * Input 输入框 通过鼠标或键盘输入内容，是最基础的表单域的包装。
- * 
- * ~~~js
- * // 这样引用
- * import { Input } from 'vikingship'
- * ~~~
- * 
- * 支持 HTMLInput 的所有基本属性
- */
 export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   const {
     disabled,
