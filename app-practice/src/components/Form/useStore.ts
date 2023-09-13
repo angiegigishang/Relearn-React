@@ -34,12 +34,13 @@ function fieldsReducer(state: FieldState, action: FieldsAction):FieldState {
       return {
         ...state,
         [action.name]: {...state[action.name], value: action.value}
+        
       }
     case 'updateValidateResult':
       const { isValid, errors } = action.value
       return {
         ...state,
-        [action.name]: { ...state[action.name], isValid, errors}
+        [action.name]: { ...state[action.name], isValid, errors }
       }
     default:
       return state;
@@ -68,7 +69,7 @@ function useStore() {
     } catch (e) {
       isValid = false
       const err = e as any
-      console.log('e', err.errors)
+      console.log('error', err.errors)
       console.log('fields', err.fields)
       errors = err.erros
     } finally {
