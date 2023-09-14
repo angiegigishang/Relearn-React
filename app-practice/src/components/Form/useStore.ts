@@ -73,7 +73,6 @@ function useStore() {
       console.log('fields', err.fields)
       errors = err.erros
     } finally {
-      console.log('errors', isValid)
       dispatch({ type: 'updateValidateResult', name, value: {isValid, errors}})
     }
   }
