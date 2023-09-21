@@ -34,7 +34,7 @@ const Item: FC<FormItemProps> = (props) => {
   })
   useEffect(() => {
     const value = (initialValues && initialValues[name as string]) || ''
-    dispatch({ type: 'addField', name, value: {label, name, value, rules, errors,isValid: true}})
+    dispatch({ type: 'addField', name, value: {label, name, value, rules, errors: [],isValid: true}})
   }, [])
 
   const fieldState = fields[name as string]
@@ -52,7 +52,7 @@ const Item: FC<FormItemProps> = (props) => {
   const onValueUpdate = (e: any) => {
     const value = getValueFromEvent && getValueFromEvent(e)
     console.log('new value', value)
-    dispatch({type: 'updateValue', name, value})
+    dispatch({type: 'updateValue', name, value, })
   }
   const onValueValidate = async() => {
     await validateField(name)
@@ -84,6 +84,11 @@ const Item: FC<FormItemProps> = (props) => {
       ...controlProps
     }
   )
+
+  //initialValues={{username: 'aaaa', agreement: true}}
+  //rules={[{type: 'email', required: true}]}
+  //getValueFromEvent={(e)=> e.target.checked}
+  //label="user name" name="username"
 
   return (
     <div className={rowClass}>

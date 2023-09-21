@@ -15,6 +15,7 @@ export interface FieldState {
 
 export interface FormState {
   isValid: boolean;
+  errors: Record<string, ValidateError[]>;
 }
 
 export interface FieldsAction {
@@ -51,7 +52,7 @@ function fieldsReducer(state: FieldState, action: FieldsAction):FieldState {
 //class - ant design
 
 function useStore() {
-  const [ form, setForm ] = useState<FormState>({isValid: true})
+  const [ form, setForm ] = useState<FormState>({isValid: true, errors: {}})
   const [ fields, dispatch ] = useReducer(fieldsReducer, {})
   const validateField = async(name: string) => {
     const {value, rules} = fields[name]
@@ -71,7 +72,7 @@ function useStore() {
       const err = e as any
       console.log('error', err.errors)
       console.log('fields', err.fields)
-      errors = err.erros
+      errors = err.errors
     } finally {
       dispatch({ type: 'updateValidateResult', name, value: {isValid, errors}})
     }
