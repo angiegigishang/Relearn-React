@@ -4,6 +4,7 @@ import Form from "./form";
 import Item from "./formItem";
 import Input from "../Input";
 import Button from "../Button/button";
+import { CustomRule } from "./useStore";
 
 const meta: ComponentMeta<typeof Form> = {
   title: 'Form Group',
@@ -21,6 +22,20 @@ const meta: ComponentMeta<typeof Form> = {
 
 export default meta
 
+const confirmRules: CustomRule[] = [
+  {type: 'string', required: true, min: 3, max: 8},
+  ({ getFieldValue })=> ({
+    asyncValidator(rule, value) {
+      console.log('the value', getFieldValue('password'))
+      console.log(value)
+      if( value !== getFieldValue('password')) {
+        return Promise.reject('The two passwords you enter do not same')
+      }
+      return Promise.resolve()
+    }
+  })
+]
+
 export const BasicForm = () =>  {
   return (
     <Form initialValues={{username: 'aaaa', agreement: true}}>
@@ -28,6 +43,9 @@ export const BasicForm = () =>  {
         <Input/>
       </Item>
       <Item label="password" name="password" rules={[{type: 'string', required: true, min: 3, max: 8}]}>
+        <Input type='password'/>
+      </Item>
+      <Item label="repeat password" name="repeat password" rules={confirmRules}>
         <Input type='password'/>
       </Item>
       <Item name="ccc">

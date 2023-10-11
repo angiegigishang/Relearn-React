@@ -2,6 +2,7 @@ import React, { FC, ReactNode, useContext, useEffect } from "react";
 import classNames from "classnames";
 import Form, { FormContext } from "./form";
 import { RuleItem } from 'async-validator';
+import { CustomRule } from "./useStore";
 
 export type SomeRequired<T, K extends keyof T> = Required<Pick<T, K>> & Omit<T, K>
 type TestType = SomeRequired<FormItemProps, 'getValueFromEvent'>
@@ -13,7 +14,7 @@ export interface FormItemProps {
   trigger?: string;
   val?: string;
   getValueFromEvent?: (event: any) => any;
-  rules?: RuleItem[];
+  rules?: CustomRule[];
   validateTrigger?: string;
 }
 
@@ -40,7 +41,7 @@ const Item: FC<FormItemProps> = (props) => {
   const fieldState = fields[name as string]
   const value = fieldState && fieldState.value
   const errors = fieldState && fieldState.errors
-  const isRequired = rules?.some(rule => rule.required)
+  const isRequired = rules?.some(rule => (typeof rule !== 'function' ) && rule.required)
   const hasError = errors && errors.length > 0
   const labelClass = classNames({
     'viking-form-item-required': isRequired
@@ -55,6 +56,7 @@ const Item: FC<FormItemProps> = (props) => {
     dispatch({type: 'updateValue', name, value, })
   }
   const onValueValidate = async() => {
+    console.log('validate-name', name)
     await validateField(name)
   }
 
