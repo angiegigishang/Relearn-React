@@ -35,7 +35,7 @@ const Item: FC<FormItemProps> = (props) => {
   })
   useEffect(() => {
     const value = (initialValues && initialValues[name as string]) || ''
-    dispatch({ type: 'addField', name, value: {label, name, value, rules, errors: [],isValid: true}})
+    dispatch({ type: 'addField', name, value: {label, name, value, rules: rules || [], errors: [],isValid: true}})
   }, [])
 
   const fieldState = fields[name as string]

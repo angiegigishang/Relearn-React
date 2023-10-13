@@ -1,5 +1,7 @@
 import { useState, useReducer } from "react";
 import Schema, { RuleItem, ValidateError} from 'async-validator';
+import { mapValues, each } from "lodash";
+
 
 export type CustomRuleFunc = ({ getFieldValue}) => RuleItem;
 export type CustomRule = RuleItem | CustomRuleFunc
@@ -16,8 +18,13 @@ export interface FieldState {
   [key: string]: FieldDetail
 }
 
+export interface ValidateErrorType extends Error {
+  errors: ValidateError[];
+  fields: Record<string, ValidateError[]>
+}
 export interface FormState {
   isValid: boolean;
+  isSubmitting: boolean;
   errors: Record<string, ValidateError[]>;
 }
 
@@ -55,7 +62,7 @@ function fieldsReducer(state: FieldState, action: FieldsAction):FieldState {
 //class - ant design
 
 function useStore() {
-  const [ form, setForm ] = useState<FormState>({isValid: true, errors: {}})
+  const [ form, setForm ] = useState<FormState>({isValid: true, isSubmitting: false, errors: {}})
   const [ fields, dispatch ] = useReducer(fieldsReducer, {})
   const getFieldValue = (key: string) => {
     return fields[key] && fields[key].value
@@ -94,11 +101,44 @@ function useStore() {
       dispatch({ type: 'updateValidateResult', name, value: {isValid, errors}})
     }
   }
+
+  const validateAllFields = async() => {
+    let isValid = true;
+    let errors: Record<string, ValidateError[]> = {}
+    const valueMap = mapValues(fields, item=>item.value)
+    const descriptor = mapValues(fields, item => transformRules(item.rules))
+    const validator = new Schema(descriptor)
+    setForm( {...form, isSubmitting: true})
+    try {
+      await validator.validate(valueMap)
+    } catch(e) {
+      isValid = false;
+      const err = e as ValidateErrorType
+      errors = err.fields
+      each(fields, (value, name) => {
+        if (errors[name]) {
+          const itemErrors = errors[name]
+          dispatch({type: 'updateValidateResult', name, value: {isValid: false, errors: itemErrors}})
+        }
+        else if(value.rules.length > 0 && !errors[name]) {
+          dispatch({type: 'updateValidateResult', name, value: {isValid: true, errors: []}})
+        }
+      })
+    } finally {
+      setForm({...form, isSubmitting: false, isValid, errors})
+      return {
+        isValid,
+        errors,
+        values: valueMap
+      }
+    }
+  }
   return {
     fields,
     dispatch,
     form,
     validateField,
+    validateAllFields,
     getFieldValue
   }
 }
